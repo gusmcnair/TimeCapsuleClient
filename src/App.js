@@ -1,26 +1,72 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './style.css'
+import {Route, Switch, withRouter} from 'react-router-dom'
+import HeaderComponent from './header-component.js'
+import LandingPage from './landing-page.js'
+import CapsulesPage from './capsules-page.js'
+import AddCapsulePage from './add-capsule.js'
 
-function App() {
+class App extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      capsules: [],
+      capsulecontents: []
+    }
+  }
+
+  handleNewData = (event, data) => {
+    event.preventDefault()
+    console.log(data.time)
+    let lockTime = 0
+    if(data.time === 'oneminute'){lockTime = 60000}
+    else if(data.time === 'onehour'){lockTime = 3600000}
+    else if(data.time === 'fourhours'){lockTime = 14400000}
+    else if(data.time === 'eighthours'){lockTime = 28800000}
+    else if(data.time === 'oneday'){lockTime = 86400000}
+    else if(data.time === 'threedays'){lockTime = 259200000}
+    else if(data.time === 'oneweek'){lockTime = 604800000}
+    else if(data.time === 'fourweeks'){lockTime = 2419200000}
+    else if(data.time === 'halfayear'){lockTime = 15768000000}
+    else if(data.time === 'oneyear'){lockTime = 31536000000}
+    else if(data.time === 'twoyears'){lockTime = 63072000000}
+    else if(data.time === 'fiveyears'){lockTime = 157680000000}
+    let currDate = new Date
+    let universalDate = currDate.getTime() + lockTime
+    let expDate = new Date(universalDate)
+    let newCap = [data.title, currDate.toString(), universalDate, expDate.toString()]
+    let currState = this.state.capsules
+    let currContents = this.state.capsulecontents
+    let newContents = {
+      id: data.title,
+      body: data.content
+    }
+    currState.push(newCap)
+    currContents.push(newContents)
+    this.setState({
+      capsules: currState,
+      capsulecontents: currContents
+    })
+  }
+
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+        <HeaderComponent/>
+        <Switch>
+          <Route exact path='/'>
+            <LandingPage/>
+          </Route>
+          <Route exact path='/capsules'>
+            <CapsulesPage capsules={this.state.capsules} contents={this.state.capsulecontents}/>
+          </Route>
+          <Route exact path='/addcapsule'>
+            <AddCapsulePage handleNewData={this.handleNewData}/>
+          </Route>
+        </Switch>
+    </main>
   );
-}
+}}
 
 export default App;
