@@ -16,14 +16,20 @@ class App extends React.Component {
     }
   }
 
+  handleDelete = (title) => {
+    console.log(title, this.state)
+    let newCapsules = this.state.capsules.filter(capsule => capsule[0] !== title);
+    this.setState({
+      capsules: newCapsules
+    })
+  }
+
   handleNewData = (event, data) => {
     event.preventDefault()
     console.log(data.time)
     let lockTime = 0
     if(data.time === 'oneminute'){lockTime = 60000}
     else if(data.time === 'onehour'){lockTime = 3600000}
-    else if(data.time === 'fourhours'){lockTime = 14400000}
-    else if(data.time === 'eighthours'){lockTime = 28800000}
     else if(data.time === 'oneday'){lockTime = 86400000}
     else if(data.time === 'threedays'){lockTime = 259200000}
     else if(data.time === 'oneweek'){lockTime = 604800000}
@@ -40,7 +46,8 @@ class App extends React.Component {
     let currContents = this.state.capsulecontents
     let newContents = {
       id: data.title,
-      body: data.content
+      body: data.content,
+      image: data.imagelink
     }
     currState.push(newCap)
     currContents.push(newContents)
@@ -59,7 +66,7 @@ class App extends React.Component {
             <LandingPage/>
           </Route>
           <Route exact path='/capsules'>
-            <CapsulesPage capsules={this.state.capsules} contents={this.state.capsulecontents}/>
+            <CapsulesPage capsules={this.state.capsules} contents={this.state.capsulecontents} handleDelete={this.handleDelete}/>
           </Route>
           <Route exact path='/addcapsule'>
             <AddCapsulePage handleNewData={this.handleNewData}/>

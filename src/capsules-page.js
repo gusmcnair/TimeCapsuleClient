@@ -20,6 +20,7 @@ export default class CapsulesPage extends React.Component {
                         dateexpires={capsule[2]}
                         datexpireshuman={capsule[3]}
                         contents={this.props.contents}
+                        handleDelete={this.props.handleDelete}
                     />
                 )}
             </section>
