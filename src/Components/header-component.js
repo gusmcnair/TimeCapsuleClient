@@ -1,6 +1,6 @@
 import React from 'react'
-import './style.css'
-import {Link} from 'react-router-dom'
+import '../Utilities/style.css'
+import {Link, Router} from 'react-router-dom'
 
 
 export default class HeaderComponent extends React.Component {

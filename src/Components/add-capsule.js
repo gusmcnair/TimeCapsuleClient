@@ -1,5 +1,5 @@
 import React from 'react'
-import './style.css'
+import '../Utilities/style.css'
 import {withRouter} from 'react-router-dom'
 
 class AddCapsulePage extends React.Component{
@@ -42,8 +42,8 @@ class AddCapsulePage extends React.Component{
                 <label htmlFor='title'>Title</label>
                 <input name='title' id='title' type='text' placeholder='All my secrets' onChange={e => this.updateState(e.target.id, e.target.value)}/>
                 <label htmlFor='content'>Content</label>
-                <textarea name='content' id='content' type='text' placeholder='I dont have any' onChange={e => this.updateState(e.target.id, e.target.value)}/>
-                <label htmlFor='imagelink'>Link To Image</label>
+                <textarea name='content' id='content' type='text' placeholder='I am afraid of houseplants' rows='5' onChange={e => this.updateState(e.target.id, e.target.value)}/>
+                <label htmlFor='imagelink'>Link To Image (not required)</label>
                 <input name='imagelink' id='imagelink' type='url' onChange={e => this.updateState(e.target.id, e.target.value)}/>
                 <label htmlFor='time'>Amount of Time</label>
                 <select id='time' onChange={e => this.updateState(e.target.id, e.target.value)}>
@@ -57,7 +57,7 @@ class AddCapsulePage extends React.Component{
                     <option value='twoyears'>Two years</option>
                     <option value='fiveyears'>Five years</option>
                 </select>
-                    <p hidden={!isDisabled}>Title must be at least eight characters long. Body must be at least twenty characters long.</p>
+                    <p className='warning' hidden={!isDisabled}>Title must be at least eight characters long. Body must be at least twenty characters long.</p>
                     <button id='submit' disabled={isDisabled}>Submit</button>
                     <button id='discard' onClick={this.handleDiscard}>Discard and Return</button>
             </form>

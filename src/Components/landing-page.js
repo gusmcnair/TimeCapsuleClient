@@ -1,6 +1,6 @@
 import React from 'react'
-import './style.css'
-import {Link} from 'react-router-dom';
+import '../Utilities/style.css'
+import {Link, Router} from 'react-router-dom';
 
 export default class LandingPage extends React.Component {
 
@@ -8,7 +8,7 @@ export default class LandingPage extends React.Component {
     render(){
         return(
             <section>
-              <div class='explainer'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+              <p class='explainer'>Time capsule is an app for sending messages that can be accessed only by your future self, whether tomorrow, a month from now, or in five years. Use it to send reminders, pass encouragement to a future version of you, or just document what your life is like right now.</p>
                 <div class='button-container'>
                     <Link to='/capsules'>
                         <button className='enter-button' >

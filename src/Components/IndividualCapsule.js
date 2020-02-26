@@ -1,5 +1,5 @@
 import React from 'react'
-import './style.css'
+import '../Utilities/style.css'
 
 export default class IndividualCapsule extends React.Component {
     constructor(){
@@ -97,7 +97,7 @@ export default class IndividualCapsule extends React.Component {
         return(
             <article>
                 <h3>{this.props.title}</h3>
-                <p>Buried {this.formatDate(this.props.datecreated)}</p>
+                <p>Buried on {this.formatDate(this.props.datecreated)}</p>
                 <p>Don't open until {this.formatDate(this.props.datexpireshuman)}</p>
                 <button id='opencapsule' disabled={this.state.disabled} onClick={this.handleOpen}>Open capsule</button>
                 <div id={this.props.title} className='capsule-contents hidden'>

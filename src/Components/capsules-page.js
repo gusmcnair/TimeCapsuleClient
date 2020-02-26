@@ -1,6 +1,6 @@
 import React from 'react'
-import './style.css'
-import {Link} from 'react-router-dom'
+import '../Utilities/style.css'
+import {Link, Router} from 'react-router-dom'
 import IndividualCapsule from './IndividualCapsule.js'
 
 
