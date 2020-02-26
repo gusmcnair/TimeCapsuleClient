@@ -12,15 +12,16 @@ export default class CapsulesPage extends React.Component {
                 <Link to='/addcapsule'>
                     <button>Add new capsule</button>
                 </Link>
-                {this.props.capsules.map((capsule, index) => 
+                {this.props.capsules.map((capsule) => 
                     <IndividualCapsule
-                        key={`${capsule[0]}___${index}`}
-                        title={capsule[0]} 
-                        datecreated={capsule[1]}
-                        dateexpires={capsule[2]}
-                        datexpireshuman={capsule[3]}
+                        key={capsule.id}
+                        id={capsule.id}
+                        title={capsule.title} 
+                        datecreated={capsule.burydate}
+                        dateexpires={capsule.opennumber}
+                        datexpireshuman={capsule.opendate}
                         contents={this.props.contents}
-                        handleDelete={this.props.handleDelete}
+                        handleDelete={this.props.handleDelete} 
                     />
                 )}
             </section>
