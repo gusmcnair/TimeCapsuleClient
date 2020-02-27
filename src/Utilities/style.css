@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Neucha&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Shrikhand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -51,7 +52,7 @@ table {
 
 
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 main {
@@ -66,36 +67,46 @@ main {
     position: relative;
     margin: 20px auto;
     margin-bottom:0px; 
-    background: rgb(194,194,194);
-    background: slategray;
-    border-radius: 75px;
+    background: rgb(147,147,147);
+    background: linear-gradient(0deg, rgba(147,147,147,1) 0%, rgba(186,186,186,1) 52%, rgba(147,147,147,1) 100%);
+    border-radius: 100px;
+    border-left: 40px solid darkred;
+    border-right: 40px solid darkred;
     display: flex;
+    justify-content: space-evenly;
     box-shadow: 2px 2px 5px rgb(0,0,0,.5);
-    z-index: 10;
+    z-index: 0;
+    min-height: 100px;
 }
 
 .insidecontainer {
-    background-color: rgb(255, 255, 255, .7);
+    background: rgb(230, 230, 230, .5);
+    border-radius: 10px;
     color: black;
     padding: 10px;
     padding-left: 20px;
-    padding-right: 20px;
-    font-family: 'Neucha', sans-serif;
     margin: 0 auto;
-    min-width: 50%;
+    min-width: 75%;
     text-align: center;
 }
 
 .capsule-contents {
-    padding: 20px;
-    padding: 25px;
-    margin-top: -5px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-top: 0px;
+    margin-left: 75px;
+    margin-right: 75px;
     background: rgb(230, 230, 230);
     position: relative;
-    z-index: 0;
+    z-index: 10;
     box-shadow: 2px 2px 5px rgb(0,0,0,.5);
+    -webkit-transition: height .5s ease;
+    -o-transition: height .5s ease;
+    transition: height .5s ease;
+    overflow: hidden;
+    display: none;
+}
+
+.contents-container {
+    margin: 20px;
 }
 
 .textcontainer {
@@ -103,14 +114,24 @@ main {
     display: flex;
 }
 
-.textcontainer h3 {
-    text-transform: uppercase;
+a h1 {
+    font-family: 'Shrikhand', sans-serif;
+    color: orange;
+    font-size: 5rem;
+    line-height: 6rem;
+    text-align: center;
+    text-shadow: 2px 2px 3px darkred;
+    padding: -5px;
+    border-radius: 50px;
+}
+
+a {
+    text-decoration: none;
 }
 
 .textcontainer p {
-    font-family: 'Neucha', sans-serif;
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: .9rem;
+    line-height: .9rem;
 }
 
 header {
@@ -118,15 +139,35 @@ header {
     margin: 20px;
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: bold;
-}
+.animated {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+ }
+ 
+ @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+ }
+
+
 
 h3 {
     font-size: 1.5rem;
     font-weight: bold;
+    font-family: 'Shrikhand', sans-serif;
+    color: darkred;
 }
 
 
@@ -135,7 +176,6 @@ p {
     padding-top: 10px;
     font-size: 1.1rem;
     line-height: 1.5rem;
-    font-family: Georgia, 'Times New Roman', Times, serif
 }
 
 input, select, textarea {
@@ -146,7 +186,6 @@ input, select, textarea {
     min-width: 100%;
     font-size: 1.1rem;
     line-height: 1.5rem;
-    font-family: Georgia, 'Times New Roman', Times, serif
 }
 
 form {
@@ -154,16 +193,19 @@ form {
 }
 
 img {
-    max-width: 100%;
+    max-height: 400px;
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
 }
 
-button {
-    padding: 10px;
-    font-size: 1.1rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    border-radius: 3px;
-    margin: 10px;
-    background-color: lightblue;
+
+.capsulebutton {
+    padding: 0px;
+    background-color: none;
 }
 
 .enter-button {
@@ -171,9 +213,9 @@ button {
 }
 
 .button-container {
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .warning {
@@ -185,51 +227,124 @@ button {
 }
 
 .explainer {
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
     padding: 20px;
     text-align: center;
 }
 
-.hidden {
-    display: none;
+.show {
+    display: block;
+    padding: 0px;
 }
 
 .opencapsule {
-    line-height: 5rem;
+    align-self: center;
     color: white;
-    box-shadow: 2px 2px 5px rgb(0,0,0,.5);
     width: 80px;
     height: 80px;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: .8rem;
     text-align: center;
     border-radius: 50%;
-    background-color: slategray;
+    border: 1px solid white;
+    background-color: gray;
     margin-right: 30px;
-    margin-top: 5px;
-    border: 0px;
+    cursor: pointer;
+    outline: none;
+}
+
+.opencapsule:disabled {
+    cursor: auto;
+}
+
+.addcapsules {
+    background-color: #ddd;
+    padding-right: 15px;
 }
 
 .makered {
-    background-color: red;
+    background-color: darkred;
 }
 
 .makeblue {
+    background-color: orange;
+}
+
+.opentext {
+    font-size: .8rem;
+    line-height: 1rem;
+}
+
+#submit, #discard, #delete, .enter-button {
+    margin: 5px;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.1rem;
+    background: orange;
+    border: 1px solid darkred;
+    font-family: 'Shrikhand', sans-serif;
+    cursor: pointer;
+}
+
+.addnewcontainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#addnew {
+    margin: 5px;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.4rem;
+    background: orange;
+    border: 1px solid darkred;
+    font-family: 'Shrikhand', sans-serif;
+}
+
+#submit:disabled {
+    background: white;
+    color: darkgray;
+}
+
+html {
     background-color: steelblue;
 }
+
+.imagecontainer {
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.loader {
+    border: 8px solid orange; 
+    border-top: 8px solid darkred; 
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin: 20px;
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 
 @media only screen and (min-width: 800px){
 
-body {
-    background-color: #ddd;
-}
 
 main {
     width: 750px;
     margin: 0 auto;
-    margin-top: 100px;
     margin-bottom: 100px;
     min-height: 400px;
-    padding: 40px;
 
 }
 

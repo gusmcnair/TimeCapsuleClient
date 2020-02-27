@@ -3,7 +3,7 @@ import '../Utilities/style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
- 
+
 let clockFirst = <FontAwesomeIcon icon={faClock} />
 let envelopeSecond = <FontAwesomeIcon icon={faEnvelopeOpenText} />
 
@@ -18,6 +18,7 @@ export default class IndividualCapsule extends React.Component {
             dateexpires: 0,
             currentdate: 0,
             clock: clockFirst,
+            status: ''
         }
     }
 
@@ -29,16 +30,18 @@ export default class IndividualCapsule extends React.Component {
         if (currDate > this.props.dateexpires) {
             this.setState({
                 disabled: false,
-                clock: envelopeSecond 
+                clock: envelopeSecond,
+                status: 'OPEN'
             })
-            document.getElementById(this.props.title + '_button').classList.add('makeblue') 
-          
+            document.getElementById(this.props.title + '_button').classList.add('makeblue')
+
             clearInterval(this.interval)
         } else {
             this.interval = setInterval(() =>
-            this.checkDate(),
-            10000
-        )}
+                this.checkDate(),
+                10000
+            )
+        }
     }
 
     componentWillUnmount() {
@@ -50,15 +53,16 @@ export default class IndividualCapsule extends React.Component {
         if (currDate > this.props.dateexpires) {
             this.setState({
                 disabled: false,
-                clock: envelopeSecond 
+                clock: envelopeSecond
             })
-            document.getElementById(this.props.title + '_button').classList.add('makered') 
-            alert(`Your time capsule ${this.props.title} just opened!`)          
+            document.getElementById(this.props.title + '_button').classList.add('makered')
+            alert(`Your time capsule '${this.props.title}' just unlocked!`)
+            this.setState({status: 'OPEN'})
             clearInterval(this.interval)
         }
     }
 
-    handleOpen = (id) => {  
+    handleOpen = (id) => {
         fetch(`${apiCall}/${id}?auth=${AUTH_TOKEN}`)
             .then(capsule => {
                 if (capsule.ok) {
@@ -70,45 +74,70 @@ export default class IndividualCapsule extends React.Component {
     }
 
     handleNewCapsule = (newCapsule) => {
-        document.getElementById(this.props.title + '_button').classList.remove('makered')  
+        document.getElementById(this.props.title + '_button').classList.remove('makered')
         let image = document.createElement('img')
-        console.log(newCapsule)
         if (newCapsule.imageurl !== '') {
             image.src = newCapsule.imageurl
             image.alt = this.props.title
         }
         if (document.getElementById(`${this.props.title}_contents`).innerHTML == '') {
-            document.getElementById(this.props.title + '_button').classList.add('makeblue')  
+            document.getElementById(this.props.title + '_button').classList.add('makeblue')
             if (image.src) {
+                document.getElementById(`${this.props.title}_image`).classList.add('imagecontainer')
                 document.getElementById(`${this.props.title}_image`).append(image)
             }
             document.getElementById(`${this.props.title}_contents`).append(newCapsule.contents)
         }
-        document.getElementById(this.props.title).classList.remove('hidden')
+        this.handleAppearance()
     }
 
-    handleHide = () => {
-        document.getElementById(this.props.title).classList.add('hidden')
+    handleAppearance = () => {
+        let element = document.getElementById(this.props.title)
+        let thisButton = document.getElementById(this.props.title + '_button')
+        if (!element.classList.contains('show')) {
+            this.setState({status: 'CLOSE'})
+            thisButton.classList.add('makered')
+            thisButton.classList.remove('makeblue')
+            element.classList.add('show')
+            element.style.height = 'auto';
+            let height = element.clientHeight + 'px';
+            console.log(document.getElementById(`${this.props.title}_image`).clientHeight)
+            element.style.height = '0px';
+            setTimeout(function () {
+                element.style.height = height;
+            }, 0)
+        } else {
+            this.setState({status: 'OPEN'})
+            thisButton.classList.add('makeblue')
+            thisButton.classList.remove('makered')
+            element.style.height = '0px';
+            element.addEventListener('transitionend', function () {
+                element.classList.remove('show')
+            }, {
+                once: true
+            })
+        }
     }
 
     render() {
 
         return (
             <article>
-                <div className='capsule' role='button' disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)}>
-                    <div className='opencapsule' id= {this.props.title + '_button'}>{this.state.clock}</div>
+                <div className='capsule'>
+                    <button disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)} className='opencapsule' id={this.props.title + '_button'}>{this.state.clock}<span className='opentext'>{this.state.status}</span></button>
                     <div className='textcontainer'>
-                    <div className='insidecontainer'>
-                        <h3>{this.props.title}</h3>
-                        <p>Buried on {this.props.datecreated}</p><p>Don't open until {this.props.datexpireshuman}</p>
+                        <div className='insidecontainer'>
+                            <h3>{this.props.title}</h3>
+                            <p>Buried on {this.props.datecreated}</p><p>Don't open until {this.props.datexpireshuman}</p>
+                        </div>
                     </div>
-                    </div>                
+                </div>
+                <div id={this.props.title} className='capsule-contents'>
+                    <div className='contents-container'>
+                        <div id={this.props.title + '_image'}></div>
+                        <p id={this.props.title + '_contents'}></p>
+                        <button name='delete' id='delete' onClick={e => this.props.handleDelete(this.props.id)}>Delete</button>
                     </div>
-                <div id={this.props.title} className='capsule-contents hidden'>
-                    <div id={this.props.title + '_image'}></div>
-                    <p id={this.props.title + '_contents'}></p>
-                    <button name='hidecapsule' onClick={this.handleHide}>Hide Capsule Contents</button>
-                    <button name='delete' onClick={e => this.props.handleDelete(this.props.id)}>Delete</button>
                 </div>
             </article>
         )

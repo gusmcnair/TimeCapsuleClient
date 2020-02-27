@@ -144,7 +144,7 @@ class App extends React.Component {
         <HeaderComponent/>
         <Switch>
           <Route exact path='/'>
-            <LandingPage/>
+            <LandingPage capsules={this.state.capsules}/>
           </Route>
           <Route exact path='/capsules'>
             <CapsulesPage capsules={this.state.capsules} handleDelete={this.handleDelete}/>

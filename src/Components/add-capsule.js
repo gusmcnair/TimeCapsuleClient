@@ -37,7 +37,7 @@ class AddCapsulePage extends React.Component{
     render(){
         const isDisabled = this.handleDisabled()
         return(
-            <section>
+            <section className='addcapsules animated fadeIn'>
                <form onSubmit={e => this.handleSubmit(e, this.state)}>
                 <label htmlFor='title'>Title</label>
                 <input name='title' id='title' type='text' placeholder='All my secrets' onChange={e => this.updateState(e.target.id, e.target.value)}/>
