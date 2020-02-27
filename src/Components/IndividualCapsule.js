@@ -1,67 +1,88 @@
 import React from 'react'
 import '../Utilities/style.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
+ 
+let clockFirst = <FontAwesomeIcon icon={faClock} />
+let envelopeSecond = <FontAwesomeIcon icon={faEnvelopeOpenText} />
 
-let AUTH_TOKEN ='bd990ba4-228b-11ea-978f-2e728ce88125'
+let apiCall = 'https://timecapsule0220.herokuapp.com/api/capsules'
+let AUTH_TOKEN = 'bd990ba4-228b-11ea-978f-2e728ce88125'
 
 export default class IndividualCapsule extends React.Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
             disabled: true,
             dateexpires: 0,
-            currentdate: 0
+            currentdate: 0,
+            clock: clockFirst,
         }
     }
 
-    componentDidMount(){
-        this.checkDate()
+    componentDidMount() {
+        let currDate = Date.now()
         this.setState({
             dateexpires: this.props.dateexpires
         })
-
-        this.interval = setInterval(() => 
+        if (currDate > this.props.dateexpires) {
+            this.setState({
+                disabled: false,
+                clock: envelopeSecond 
+            })
+            document.getElementById(this.props.title + '_button').classList.add('makeblue') 
+          
+            clearInterval(this.interval)
+        } else {
+            this.interval = setInterval(() =>
             this.checkDate(),
             10000
-        )
+        )}
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.interval)
     }
 
-    checkDate(){
+    checkDate() {
         let currDate = Date.now()
-        if(currDate > this.props.dateexpires){
+        if (currDate > this.props.dateexpires) {
             this.setState({
-                disabled: false
+                disabled: false,
+                clock: envelopeSecond 
             })
+            document.getElementById(this.props.title + '_button').classList.add('makered') 
+            alert(`Your time capsule ${this.props.title} just opened!`)          
             clearInterval(this.interval)
         }
     }
 
-    handleOpen = (id) => {
-        fetch(`http://localhost:8000/api/capsules/${id}?auth=${AUTH_TOKEN}`)
+    handleOpen = (id) => {  
+        fetch(`${apiCall}/${id}?auth=${AUTH_TOKEN}`)
             .then(capsule => {
-                if(capsule.ok){
+                if (capsule.ok) {
                     return capsule.json()
                 }
             })
             .then(capsule => this.handleNewCapsule(capsule))
             .catch(err => console.log(err))
-        }
-        
+    }
+
     handleNewCapsule = (newCapsule) => {
+        document.getElementById(this.props.title + '_button').classList.remove('makered')  
         let image = document.createElement('img')
         console.log(newCapsule)
-        if(newCapsule.imageurl !== ''){
+        if (newCapsule.imageurl !== '') {
             image.src = newCapsule.imageurl
             image.alt = this.props.title
         }
-        if(document.getElementById(`${this.props.title}_contents`).innerHTML == ''){
-        if(image.src){
-        document.getElementById(`${this.props.title}_image`).append(image)
-        }
-        document.getElementById(`${this.props.title}_contents`).append(newCapsule.contents)
+        if (document.getElementById(`${this.props.title}_contents`).innerHTML == '') {
+            document.getElementById(this.props.title + '_button').classList.add('makeblue')  
+            if (image.src) {
+                document.getElementById(`${this.props.title}_image`).append(image)
+            }
+            document.getElementById(`${this.props.title}_contents`).append(newCapsule.contents)
         }
         document.getElementById(this.props.title).classList.remove('hidden')
     }
@@ -70,13 +91,19 @@ export default class IndividualCapsule extends React.Component {
         document.getElementById(this.props.title).classList.add('hidden')
     }
 
-    render(){
-        return(
+    render() {
+
+        return (
             <article>
-                <h3>{this.props.title}</h3>
-                <p>Buried on {this.props.datecreated}</p>
-                <p>Don't open until {this.props.datexpireshuman}</p>
-                <button id='opencapsule' disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)}>Open capsule</button>
+                <div className='capsule' role='button' disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)}>
+                    <div className='opencapsule' id= {this.props.title + '_button'}>{this.state.clock}</div>
+                    <div className='textcontainer'>
+                    <div className='insidecontainer'>
+                        <h3>{this.props.title}</h3>
+                        <p>Buried on {this.props.datecreated}</p><p>Don't open until {this.props.datexpireshuman}</p>
+                    </div>
+                    </div>                
+                    </div>
                 <div id={this.props.title} className='capsule-contents hidden'>
                     <div id={this.props.title + '_image'}></div>
                     <p id={this.props.title + '_contents'}></p>

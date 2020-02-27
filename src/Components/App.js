@@ -1,11 +1,12 @@
 import React from 'react';
 import '../Utilities/style.css'
-import {Route, Switch, withRouter} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import HeaderComponent from './header-component.js'
 import LandingPage from './landing-page.js'
 import CapsulesPage from './capsules-page.js'
 import AddCapsulePage from './add-capsule.js'
 
+let apiCall = 'https://timecapsule0220.herokuapp.com/api/capsules'
 let AUTH_TOKEN ='bd990ba4-228b-11ea-978f-2e728ce88125'
 
 class App extends React.Component {
@@ -37,7 +38,7 @@ class App extends React.Component {
     let expDate = new Date(universalDate)
     let buryDate = this.formatDate(currDate.toString())
     let openDate = this.formatDate(expDate.toString())
-    let imageLink = !data.imagelink ? '' : data.imageLink
+    let imageLink = !data.imagelink ? '' : data.imagelink
     console.log(data.title, data.content, imageLink, buryDate, openDate, universalDate)
     let newCapsule = {
       title: data.title,
@@ -47,7 +48,7 @@ class App extends React.Component {
       opendate: openDate,
       opennumber: universalDate,
     }
-    fetch(`http://localhost:8000/api/capsules?auth=${AUTH_TOKEN}`, {
+    fetch(`${apiCall}?auth=${AUTH_TOKEN}`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json' },
@@ -110,7 +111,7 @@ class App extends React.Component {
       capsules: newCapsules
     })
     console.log(id)
-    fetch(`http://localhost:8000/api/capsules/${id}?auth=${AUTH_TOKEN}`, {
+    fetch(`${apiCall}/${id}?auth=${AUTH_TOKEN}`, {
         method: 'DELETE'})
         .then(res => {
             if(res.ok){
@@ -121,7 +122,8 @@ class App extends React.Component {
       }
 
   getCapsules(){
-    fetch(`http://localhost:8000/api/capsules?auth=${AUTH_TOKEN}`)
+    console.log(`${apiCall}?auth=${AUTH_TOKEN}`)
+    fetch(`${apiCall}?auth=${AUTH_TOKEN}`)
     .then(capsules => {
       if(capsules.ok){
         return capsules.json()

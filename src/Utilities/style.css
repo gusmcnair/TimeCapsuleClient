@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Neucha&display=swap');
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -53,14 +55,62 @@ table {
 }
 
 main {
-    padding: 40px;
+    padding: 10px;
+    background-color: steelblue;
 }
 
-article {
+
+
+.capsule {
     padding: 20px;
-    margin: 20px;
-    background-color: lightgray;
-    border-radius: 5px;
+    position: relative;
+    margin: 20px auto;
+    margin-bottom:0px; 
+    background: rgb(194,194,194);
+    background: slategray;
+    border-radius: 75px;
+    display: flex;
+    box-shadow: 2px 2px 5px rgb(0,0,0,.5);
+    z-index: 10;
+}
+
+.insidecontainer {
+    background-color: rgb(255, 255, 255, .7);
+    color: black;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: 'Neucha', sans-serif;
+    margin: 0 auto;
+    min-width: 50%;
+    text-align: center;
+}
+
+.capsule-contents {
+    padding: 20px;
+    padding: 25px;
+    margin-top: -5px;
+    margin-left: 50px;
+    margin-right: 50px;
+    background: rgb(230, 230, 230);
+    position: relative;
+    z-index: 0;
+    box-shadow: 2px 2px 5px rgb(0,0,0,.5);
+}
+
+.textcontainer {
+    width: 60%;
+    display: flex;
+}
+
+.textcontainer h3 {
+    text-transform: uppercase;
+}
+
+.textcontainer p {
+    font-family: 'Neucha', sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 
 header {
@@ -78,6 +128,8 @@ h3 {
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+
 
 p {
     padding-top: 10px;
@@ -132,11 +184,6 @@ button {
     margin-left: 20px;
 }
 
-.capsule-contents {
-    background: white;
-    padding: 25px;
-}
-
 .explainer {
     padding: 20px;
     text-align: center;
@@ -146,6 +193,30 @@ button {
     display: none;
 }
 
+.opencapsule {
+    line-height: 5rem;
+    color: white;
+    box-shadow: 2px 2px 5px rgb(0,0,0,.5);
+    width: 80px;
+    height: 80px;
+    font-size: 3rem;
+    text-align: center;
+    border-radius: 50%;
+    background-color: slategray;
+    margin-right: 30px;
+    margin-top: 5px;
+    border: 0px;
+}
+
+.makered {
+    background-color: red;
+}
+
+.makeblue {
+    background-color: steelblue;
+}
+
+
 @media only screen and (min-width: 800px){
 
 body {
@@ -154,11 +225,12 @@ body {
 
 main {
     width: 750px;
-    background-color: white;
     margin: 0 auto;
     margin-top: 100px;
     margin-bottom: 100px;
     min-height: 400px;
+    padding: 40px;
+
 }
 
 
