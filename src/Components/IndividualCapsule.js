@@ -124,9 +124,7 @@ export default class IndividualCapsule extends React.Component {
         return (
             <article>
                 <div className='capsule'>
-                <div className='textcontainer'>
-                    <button disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)} className='opencapsule' id={this.props.title + '_button'}><span className='opentext'>{this.state.status}</span></button>
-                    </div>
+                    <button disabled={this.state.disabled} onClick={e => this.handleOpen(this.props.id)} className='opencapsule' id={this.props.title + '_button'}>{this.state.clock}<span className='opentext'>{this.state.status}</span></button>
                     <div className='textcontainer'>
                         <div className='insidecontainer'>
                             <h3>{this.props.title}</h3>
