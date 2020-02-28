@@ -70,9 +70,6 @@ main {
     background: rgb(147,147,147);
     background: linear-gradient(0deg, rgba(147,147,147,1) 0%, rgba(186,186,186,1) 52%, rgba(147,147,147,1) 100%);
     border-radius: 100px;
-    border-left: 40px solid darkred;
-    border-right: 40px solid darkred;
-    display: flex;
     justify-content: space-evenly;
     box-shadow: 2px 2px 5px rgb(0,0,0,.5);
     z-index: 0;
@@ -86,14 +83,13 @@ main {
     padding: 10px;
     padding-left: 20px;
     margin: 0 auto;
-    min-width: 75%;
-    text-align: center;
+    min-width: 50%;
 }
 
 .capsule-contents {
-    margin-top: 0px;
-    margin-left: 75px;
-    margin-right: 75px;
+    margin-top: 1px;
+    margin-left: 20px;
+    margin-right: 20px;
     background: rgb(230, 230, 230);
     position: relative;
     z-index: 10;
@@ -110,15 +106,15 @@ main {
 }
 
 .textcontainer {
-    width: 60%;
+    padding: 5px;
     display: flex;
 }
 
 a h1 {
     font-family: 'Shrikhand', sans-serif;
     color: orange;
-    font-size: 5rem;
-    line-height: 6rem;
+    font-size: 3rem;
+    line-height: 2rem;
     text-align: center;
     text-shadow: 2px 2px 3px darkred;
     padding: -5px;
@@ -193,7 +189,7 @@ form {
 }
 
 img {
-    max-height: 400px;
+    max-height: 250px;
     position: absolute;
     top: -9999px;
     bottom: -9999px;
@@ -240,7 +236,7 @@ img {
 }
 
 .opencapsule {
-    align-self: center;
+    margin:0 auto;
     color: white;
     width: 80px;
     height: 80px;
@@ -250,7 +246,6 @@ img {
     border-radius: 50%;
     border: 1px solid white;
     background-color: gray;
-    margin-right: 30px;
     cursor: pointer;
     outline: none;
 }
@@ -315,7 +310,7 @@ html {
 }
 
 .imagecontainer {
-    height: 400px;
+    height: 250px;
     position: relative;
     overflow: hidden;
 }
@@ -337,15 +332,48 @@ html {
   }
 
 
-@media only screen and (min-width: 800px){
+@media only screen and (min-width:500px){
+    .capsule{
+        border-left: 40px solid darkred;
+        border-right: 40px solid darkred;
+    }
+  }
+
+
+@media only screen and (min-width: 700px){
 
 
 main {
-    width: 750px;
+    width: 700px;
     margin: 0 auto;
     margin-bottom: 100px;
     min-height: 400px;
 
+}
+
+.capsule-contents {
+    margin-left: 75px;
+    margin-right: 75px;
+
+}
+
+.capsule {
+    display: flex;
+}
+
+a h1 {
+    font-size: 5rem;
+    line-height: 6rem;
+}
+
+img {
+    max-height: 400px;
+}
+
+.imagecontainer {
+    height: 400px;
+    position: relative;
+    overflow: hidden;
 }
 
 
