@@ -67,9 +67,10 @@ main {
     position: relative;
     margin: 20px auto;
     margin-bottom:0px; 
+    border-left: 20px solid darkred;
+    border-right: 20px solid darkred;
     background: rgb(147,147,147);
     background: linear-gradient(0deg, rgba(147,147,147,1) 0%, rgba(186,186,186,1) 52%, rgba(147,147,147,1) 100%);
-    border-radius: 100px;
     justify-content: space-evenly;
     box-shadow: 2px 2px 5px rgb(0,0,0,.5);
     z-index: 0;
@@ -84,6 +85,7 @@ main {
     padding-left: 20px;
     margin: 0 auto;
     min-width: 50%;
+    text-align: center;
 }
 
 .capsule-contents {
@@ -114,7 +116,7 @@ a h1 {
     font-family: 'Shrikhand', sans-serif;
     color: orange;
     font-size: 3rem;
-    line-height: 2rem;
+    line-height: 3rem;
     text-align: center;
     text-shadow: 2px 2px 3px darkred;
     padding: -5px;
@@ -236,7 +238,6 @@ img {
 }
 
 .opencapsule {
-    margin:0 auto;
     color: white;
     width: 80px;
     height: 80px;
@@ -336,6 +337,7 @@ html {
     .capsule{
         border-left: 40px solid darkred;
         border-right: 40px solid darkred;
+        border-radius: 100px;
     }
   }
 
